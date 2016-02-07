@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="site.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body ng-app="myapp" ng-controller="myctrl">
 
@@ -14,25 +15,39 @@
             <div class="logo">
                 <span class="words">bstutimeline</span>
             </div>
-        </div>
 
-        <div class="timeline">
-            <div class="item" ng-repeat="newsItem in news">
-                <div class="date">
-                    {{newsItem.date}} 
+            <div class="timeline">
+                <div class="item" ng-repeat="newsItem in news">
+                    <div class="img-container">
+                        <div class="img" ng-style="{ 'background': 'url(' + newsItem.thumb + ')', 'background-size': 'cover', 'background-position': 'center center'}"></div>
+
+                        <div class="placement">
+                            {{ newsItem.place }}
+                        </div>
+
+                        <div class="views">
+                            <i class="fa fa-eye"></i>
+                            {{ newsItem.views }}
+                        </div>
+                    </div>
+
+                    <div class="date">
+                        {{newsItem.date}}
+                    </div>
+
+                    <div class="title">
+                        {{ newsItem.title }}
+                    </div>
+
+                    <div class="actions">
+                        <div class="action">Читать</div>
+                        <div class="action">Поделиться</div>
+                    </div>
                 </div>
-
-                <div class="img-container">
-                    <div class="img" ng-style="{ 'background': 'url(' + newsItem.thumb + ')', 'background-size': 'cover', 'background-position': 'center center'}"></div>
-                </div>
-
-                <div class="title">
-                    {{ newsItem.place }}: {{ newsItem.title }}
-                </div>
-
-                <div class="spliter"></div>
             </div>
         </div>
+
+        
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
@@ -45,74 +60,38 @@
                     $scope.news = [
                         {
                             title: 'Посещение Национальной библиотеки',
-                            category: 'Международная деятельность',
                             place: 'ИТ',
                             date: '06.01.2016 - 29.02.2016',
-                            thumb: 'imgs/news-1.jpg'
+                            thumb: 'imgs/news-1-extra.jpg',
+                            views: 16
                         },
                         {
                             title: 'Олимпиада "IT-ПЛАНЕТА" 2015',
-                            category: 'Образование',
                             place: 'ИТ',
                             date: '02.11.2015',
-                            thumb: 'imgs/news-2.jpg'
+                            thumb: 'imgs/news-2-extra.jpg',
+                            views: 128
                         },
                         {
                             title: 'Посещение выставки "Мятный лев - 2015"',
-                            category: 'Культура',
                             place: 'Технолог',
                             date: '30.10.2015',
-                            thumb: 'imgs/news-3.jpg'
+                            thumb: 'imgs/news-3-extra.jpg',
+                            views: 1024
                         },
                         {
                             title: 'Награждение почётными грамотами студентов и выпускников БГТУ',
-                            category: 'Образование',
                             place: 'ИТ',
                             date: '28.10.2015',
-                            thumb: 'imgs/news-4.jpg'
+                            thumb: 'imgs/news-4-extra.jpg',
+                            views: 10404
                         },
                         {
                             title: 'Второй конкурс инновационных ваучеров в сфере энергоэффективности и возобновляемымх источников энергии в Беларуси',
-                            category: 'Наука',
                             place: 'Университет',
                             date: '15.10.2015',
-                            thumb: 'imgs/news-5.jpg'
-                        },
-
-                        {
-                            title: 'Посещение Национальной библиотеки',
-                            category: 'Международная деятельность',
-                            place: 'ИТ',
-                            date: '06.01.2016 - 29.02.2016',
-                            thumb: 'imgs/news-1.jpg'
-                        },
-                        {
-                            title: 'Олимпиада "IT-ПЛАНЕТА" 2015',
-                            category: 'Образование',
-                            place: 'ИТ',
-                            date: '02.11.2015',
-                            thumb: 'imgs/news-2.jpg'
-                        },
-                        {
-                            title: 'Посещение выставки "Мятный лев - 2015"',
-                            category: 'Культура',
-                            place: 'Технолог',
-                            date: '30.10.2015',
-                            thumb: 'imgs/news-3.jpg'
-                        },
-                        {
-                            title: 'Награждение почётными грамотами студентов и выпускников БГТУ',
-                            category: 'Образование',
-                            place: 'ИТ',
-                            date: '28.10.2015',
-                            thumb: 'imgs/news-4.jpg'
-                        },
-                        {
-                            title: 'Второй конкурс инновационных ваучеров в сфере энергоэффективности и возобновляемымх источников энергии в Беларуси',
-                            category: 'Наука',
-                            place: 'Университет',
-                            date: '15.10.2015',
-                            thumb: 'imgs/news-5.jpg'
+                            thumb: 'imgs/news-5-extra.jpg',
+                            views: 136567
                         }
                     ];
                 });
