@@ -39,9 +39,27 @@
                         {{ newsItem.title }}
                     </div>
 
-                    <div class="actions">
-                        <div class="action">Читать</div>
-                        <div class="action">Поделиться</div>
+                    <div class="actions" ng-hide="newsItem.showSocials">
+                        <a class="action" href="{{ newsItem.url }}" target="_blank">Читать</a>
+                        <a class="action" ng-click="newsItem.showSocials = true">Поделиться</a>
+                    </div>
+
+                    <div class="socials" ng-show="newsItem.showSocials">
+                        <a target="_blank" href="http://vk.com/share.php?url={{ newsItem.url }}">
+                            <i class="fa fa-vk"></i>
+                        </a>
+
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text={{ newsItem.title }}&url={{ newsItem.url }}&via=bstutimeline">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+
+                        <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{ newsItem.url }}">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        
+                        <a class="close" ng-click="newsItem.showSocials = false">
+                            НАЗАД
+                        </a>
                     </div>
                 </div>
             </div>
@@ -63,35 +81,40 @@
                             place: 'ИТ',
                             date: '06.01.2016 - 29.02.2016',
                             thumb: 'imgs/news-1-extra.jpg',
-                            views: 16
+                            views: 16,
+                            url: 'http://it.belstu.by/news/culture/poseshhenie-nacionalnoi-biblioteki.html'
                         },
                         {
                             title: 'Олимпиада "IT-ПЛАНЕТА" 2015',
                             place: 'ИТ',
                             date: '02.11.2015',
                             thumb: 'imgs/news-2-extra.jpg',
-                            views: 128
+                            views: 128,
+                            url: 'http://it.belstu.by/news/education/olimpiada-it-planeta-2015.html'
                         },
                         {
                             title: 'Посещение выставки "Мятный лев - 2015"',
                             place: 'Технолог',
                             date: '30.10.2015',
                             thumb: 'imgs/news-3-extra.jpg',
-                            views: 1024
+                            views: 1024,
+                            url: 'http://it.belstu.by/news/culture/poseshhenie-vystavki-myatnyi-lev--2015.html'
                         },
                         {
                             title: 'Награждение почётными грамотами студентов и выпускников БГТУ',
                             place: 'ИТ',
                             date: '28.10.2015',
                             thumb: 'imgs/news-4-extra.jpg',
-                            views: 10404
+                            views: 10404,
+                            url: 'http://it.belstu.by/news/education/nagrazhdenie-pochetnymi-gramotami-studentov-i-vypusknikov-bgtu.html'
                         },
                         {
                             title: 'Второй конкурс инновационных ваучеров в сфере энергоэффективности и возобновляемымх источников энергии в Беларуси',
                             place: 'Университет',
                             date: '15.10.2015',
                             thumb: 'imgs/news-5-extra.jpg',
-                            views: 136567
+                            views: 136567,
+                            url: 'http://it.belstu.by/news/culture/85-letie-nashego-universiteta.html'
                         }
                     ];
                 });
