@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>bstutimeline</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="site.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+</head>
+<body ng-app="myapp" ng-controller="myctrl">
+
+    <div class="canvas">
+        <div class="container">
+            <div class="logo">
+                <span class="words">bstutimeline</span>
+            </div>
+        </div>
+
+        <div class="timeline">
+            <div class="item" ng-repeat="newsItem in news">
+                <div class="date">
+                    {{newsItem.date}} 
+                </div>
+
+                <div class="img-container">
+                    <div class="img" ng-style="{ 'background': 'url(' + newsItem.thumb + ')'}"></div>
+                </div>
+
+                <div class="title">
+                    {{ newsItem.place }}: {{ newsItem.title }}
+                </div>
+
+                <div class="spliter"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+
+    <script>
+        (function () {
+            angular
+                .module('myapp', [])
+                .controller('myctrl', function ($scope) {
+                    $scope.news = [
+                        {
+                            title: 'Посещение Национальной библиотеки',
+                            category: 'Международная деятельность',
+                            place: 'ИТ',
+                            date: '06.01.2016 - 29.02.2016',
+                            thumb: 'imgs/news-1.jpg'
+                        },
+                        {
+                            title: 'Олимпиада "IT-ПЛАНЕТА" 2015',
+                            category: 'Образование',
+                            place: 'ИТ',
+                            date: '02.11.2015',
+                            thumb: 'imgs/news-2.jpg'
+                        },
+                        {
+                            title: 'Посещение выставки "Мятный лев - 2015"',
+                            category: 'Культура',
+                            place: 'Технолог',
+                            date: '30.10.2015',
+                            thumb: 'imgs/news-3.jpg'
+                        },
+                        {
+                            title: 'Награждение почётными грамотами студентов и выпускников БГТУ',
+                            category: 'Образование',
+                            place: 'ИТ',
+                            date: '28.10.2015',
+                            thumb: 'imgs/news-4.jpg'
+                        },
+                        {
+                            title: 'Второй конкурс инновационных ваучеров в сфере энергоэффективности и возобновляемымх источников энергии в Беларуси',
+                            category: 'Наука',
+                            place: 'Университет',
+                            date: '15.10.2015',
+                            thumb: 'imgs/news-5.jpg'
+                        },
+
+                        {
+                            title: 'Посещение Национальной библиотеки',
+                            category: 'Международная деятельность',
+                            place: 'ИТ',
+                            date: '06.01.2016 - 29.02.2016',
+                            thumb: 'imgs/news-1.jpg'
+                        },
+                        {
+                            title: 'Олимпиада "IT-ПЛАНЕТА" 2015',
+                            category: 'Образование',
+                            place: 'ИТ',
+                            date: '02.11.2015',
+                            thumb: 'imgs/news-2.jpg'
+                        },
+                        {
+                            title: 'Посещение выставки "Мятный лев - 2015"',
+                            category: 'Культура',
+                            place: 'Технолог',
+                            date: '30.10.2015',
+                            thumb: 'imgs/news-3.jpg'
+                        },
+                        {
+                            title: 'Награждение почётными грамотами студентов и выпускников БГТУ',
+                            category: 'Образование',
+                            place: 'ИТ',
+                            date: '28.10.2015',
+                            thumb: 'imgs/news-4.jpg'
+                        },
+                        {
+                            title: 'Второй конкурс инновационных ваучеров в сфере энергоэффективности и возобновляемымх источников энергии в Беларуси',
+                            category: 'Наука',
+                            place: 'Университет',
+                            date: '15.10.2015',
+                            thumb: 'imgs/news-5.jpg'
+                        }
+                    ];
+                });
+        })();
+    </script>
+</body>
+</html>
