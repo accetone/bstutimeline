@@ -43,6 +43,11 @@ body,
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   background: #FFF;
 }
+@media (min-width: 340px) {
+  .timeline > .item {
+    margin: 24px auto;
+  }
+}
 .timeline > .item > .img-container {
   display: block;
   position: relative;
