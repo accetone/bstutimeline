@@ -39,12 +39,12 @@
                         {{ newsItem.title }}
                     </div>
 
-                    <div class="actions" ng-hide="newsItem.showSocials">
+                    <div class="actions" ng-class="{ 'out': newsItem.showSocials }">
                         <a class="action" href="{{ newsItem.url }}" target="_blank">Читать</a>
                         <a class="action" ng-click="newsItem.showSocials = true">Поделиться</a>
                     </div>
 
-                    <div class="socials" ng-show="newsItem.showSocials">
+                    <div class="socials" ng-class="{ 'in': newsItem.showSocials }">
                         <a target="_blank" href="http://vk.com/share.php?url={{ newsItem.url }}">
                             <i class="fa fa-vk"></i>
                         </a>
@@ -56,7 +56,7 @@
                         <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{ newsItem.url }}">
                             <i class="fa fa-facebook"></i>
                         </a>
-                        
+
                         <a class="close" ng-click="newsItem.showSocials = false">
                             НАЗАД
                         </a>

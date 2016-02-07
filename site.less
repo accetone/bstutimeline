@@ -57,11 +57,12 @@ html, body, .canvas {
 
 .timeline {
     > .item {
+        position: relative;
         margin: 24px 16px 0 24px;
+        padding-bottom: 48px;
         border-radius: 2px;
         overflow: hidden;
         max-width: 280px;
-
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         background: @background-2;
 
@@ -77,7 +78,7 @@ html, body, .canvas {
             height: auto;
             overflow: hidden;
 
-            > .img {                
+            > .img {
                 width: 100%;
                 height: 187px;
             }
@@ -97,11 +98,11 @@ html, body, .canvas {
                 bottom: 4px;
                 right: 8px;
                 color: @background-2;
-                font-size: 12px;           
+                font-size: 12px;
             }
         }
 
-        > .date  {
+        > .date {
             padding: 16px 16px 8px;
             font-size: 12px;
             color: @text-secondary;
@@ -113,9 +114,20 @@ html, body, .canvas {
         }
 
         > .actions {
+            position: absolute;
+            left: 0;
             padding: 0 16px 16px;
-            height: 40px;
-            line-height: 24px;
+            height: 48px;
+            line-height: 32px;
+
+            -moz-transition: left ease 0.5s;
+            -o-transition: left ease 0.5s;
+            -webkit-transition: left ease 0.5s;
+            transition: left ease 0.5s;
+
+            &.out {
+                left: -100%;
+            }
 
             > .action {
                 text-transform: uppercase;
@@ -123,44 +135,50 @@ html, body, .canvas {
                 display: inline-block;
                 margin-right: 16px;
                 font-weight: 500;
-
                 cursor: pointer;
                 text-decoration: none;
             }
         }
 
         > .socials {
+            position: absolute;
+            left: 100%;
+            width: 100%;
             padding: 0 16px 16px;
+
+            -moz-transition: left ease 0.5s;
+            -o-transition: left ease 0.5s;
+            -webkit-transition: left ease 0.5s;
+            transition: left ease 0.5s;
+
+            &.in {
+                left: 0;
+            }
 
             > a {
                 display: inline-block;
-                
-                height: 24px;
-                width: 24px;
-                line-height: 24px;
-                border-radius: 24px;
-
+                height: 32px;
+                width: 32px;
+                line-height: 32px;
+                border-radius: 32px;
                 cursor: pointer;
                 margin-right: 16px;
                 text-decoration: none;
                 text-align: center;
-
                 background: @primary;
                 color: @background-2;
-
-                font-size: 15px;
+                font-size: 18px;
 
                 &.close {
                     float: right;
                     margin-right: 0;
                     width: auto;
-
                     background: none;
                     color: @primary;
-
                     font-size: 14px;
                     font-weight: 500;
                     text-transform: uppercase;
+                    border-radius: 0;
                 }
             }
         }
