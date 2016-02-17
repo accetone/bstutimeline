@@ -46,6 +46,13 @@ namespace site
             services.AddScoped<IDataContext>(provider => provider.GetService<DataContext>());
             services.AddScoped<INewsRepository, NewsRepository>();
             services.AddScoped<INewsService, NewsService>();
+
+            services.Configure<FileSystem>(options =>
+            {
+                options.ThumbsPath = Configuration["fs:thumbs-path"];
+                options.ThumbsDesktopFilename = Configuration["fs:thumbs-desktop-filename"];
+                options.ThumbsMobileFilename = Configuration["fs:thumbs-mobile-filename"];
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
