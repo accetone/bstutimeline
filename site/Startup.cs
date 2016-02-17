@@ -50,8 +50,7 @@ namespace site
             services.Configure<FileSystem>(options =>
             {
                 options.ThumbsPath = Configuration["fs:thumbs-path"];
-                options.ThumbsDesktopFilename = Configuration["fs:thumbs-desktop-filename"];
-                options.ThumbsMobileFilename = Configuration["fs:thumbs-mobile-filename"];
+                options.ThumbsFilename = Configuration["fs:thumbs-filename"];
             });
 
             if (Configuration["env"] == "dev")
