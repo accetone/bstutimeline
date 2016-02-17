@@ -17,8 +17,8 @@ namespace site.Data
 
         public string GetThumbUrl(News news)
         {
-            var url = $"https://www.belstu.by/usdata/news/{news.GroupId}/{FsOptions.ThumbsDesktopFilename}";
-            var filename = $"{FsOptions.ThumbsPath}\\{news.GroupId}\\{FsOptions.ThumbsDesktopFilename}";
+            var url = $"https://www.belstu.by/usdata/news/{news.GroupId}/{FsOptions.ThumbsFilename}";
+            var filename = $"{FsOptions.ThumbsPath}\\{news.GroupId}\\{FsOptions.ThumbsFilename}";
 
             return File.Exists(filename) ? url : "";
         }
