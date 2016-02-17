@@ -18,42 +18,42 @@
 
             <div class="timeline">
                 <div class="item" ng-repeat="newsItem in news">
-                    <div class="img-container">
-                        <div class="img" ng-style="{ 'background': 'url(' + newsItem.thumb + ')', 'background-size': 'cover', 'background-position': 'center center'}"></div>
+                    <div class="img-container" ng-class="{ 'no-thumb': !newsItem.Thumb }">
+                        <div ng-show="newsItem.Thumb" class="img" ng-style="{ 'background': 'url(' + newsItem.Thumb + ')', 'background-size': 'cover', 'background-position': 'center center'}"></div>
 
                         <div class="placement">
-                            {{ newsItem.place }}
+                            {{ newsItem.Place }}
                         </div>
+                    </div>
 
-                        <div class="views">
-                            <i class="fa fa-eye"></i>
-                            {{ newsItem.views }}
-                        </div>
+                    <div class="views">
+                        <i class="fa fa-eye"></i>
+                        {{ newsItem.Views }}
                     </div>
 
                     <div class="date">
-                        {{newsItem.date}}
+                        {{newsItem.Date}}
                     </div>
 
                     <div class="title">
-                        {{ newsItem.title }}
+                        {{ newsItem.Title }}
                     </div>
 
                     <div class="actions" ng-class="{ 'out': newsItem.showSocials }">
-                        <a class="action" href="{{ newsItem.url }}" target="_blank">Читать</a>
+                        <a class="action" href="{{ newsItem.Url }}" target="_blank">Читать</a>
                         <a class="action" ng-click="newsItem.showSocials = true">Поделиться</a>
                     </div>
 
                     <div class="socials" ng-class="{ 'in': newsItem.showSocials }">
-                        <a target="_blank" href="http://vk.com/share.php?url={{ newsItem.url }}">
+                        <a target="_blank" href="http://vk.com/share.php?url={{ newsItem.Url }}">
                             <i class="fa fa-vk"></i>
                         </a>
 
-                        <a target="_blank" href="https://twitter.com/intent/tweet?text={{ newsItem.title }}&url={{ newsItem.url }}&via=bstutimeline">
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text={{ newsItem.Title }}&url={{ newsItem.Url }}&via=bstutimeline">
                             <i class="fa fa-twitter"></i>
                         </a>
 
-                        <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{ newsItem.url }}">
+                        <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{ newsItem.Url }}">
                             <i class="fa fa-facebook"></i>
                         </a>
 
@@ -62,10 +62,14 @@
                         </a>
                     </div>
                 </div>
+
+                <div class="more" ng-click="get()">
+                    <div class="more-button">
+                        Ещё новости
+                    </div>
+                </div>
             </div>
         </div>
-
-        
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
@@ -74,49 +78,18 @@
         (function () {
             angular
                 .module('myapp', [])
-                .controller('myctrl', function ($scope) {
-                    $scope.news = [
-                        {
-                            title: 'Посещение Национальной библиотеки',
-                            place: 'ИТ',
-                            date: '06.01.2016 - 29.02.2016',
-                            thumb: 'imgs/news-1-extra.jpg',
-                            views: 16,
-                            url: 'http://it.belstu.by/news/culture/poseshhenie-nacionalnoi-biblioteki.html'
-                        },
-                        {
-                            title: 'Олимпиада "IT-ПЛАНЕТА" 2015',
-                            place: 'ИТ',
-                            date: '02.11.2015',
-                            thumb: 'imgs/news-2-extra.jpg',
-                            views: 128,
-                            url: 'http://it.belstu.by/news/education/olimpiada-it-planeta-2015.html'
-                        },
-                        {
-                            title: 'Посещение выставки "Мятный лев - 2015"',
-                            place: 'Технолог',
-                            date: '30.10.2015',
-                            thumb: 'imgs/news-3-extra.jpg',
-                            views: 1024,
-                            url: 'http://it.belstu.by/news/culture/poseshhenie-vystavki-myatnyi-lev--2015.html'
-                        },
-                        {
-                            title: 'Награждение почётными грамотами студентов и выпускников БГТУ',
-                            place: 'ИТ',
-                            date: '28.10.2015',
-                            thumb: 'imgs/news-4-extra.jpg',
-                            views: 10404,
-                            url: 'http://it.belstu.by/news/education/nagrazhdenie-pochetnymi-gramotami-studentov-i-vypusknikov-bgtu.html'
-                        },
-                        {
-                            title: 'Второй конкурс инновационных ваучеров в сфере энергоэффективности и возобновляемымх источников энергии в Беларуси',
-                            place: 'Университет',
-                            date: '15.10.2015',
-                            thumb: 'imgs/news-5-extra.jpg',
-                            views: 136567,
-                            url: 'http://it.belstu.by/news/culture/85-letie-nashego-universiteta.html'
-                        }
-                    ];
+                .controller('myctrl', function ($scope, $http) {
+                    $scope.news = [];
+
+                    $scope.get = function() {
+                        $http.get('/api/news?skip=' + $scope.news.length).then(function(response) {
+                            for (var i = 0; i < response.data.length; i++) {
+                                $scope.news.push(response.data[i]);
+                            }
+                        });
+                    };
+
+                    $scope.get();
                 });
         })();
     </script>

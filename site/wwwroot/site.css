@@ -71,14 +71,22 @@ body,
   padding: 4px 16px;
   border-radius: 4px 0 0 4px;
 }
-.timeline > .item > .img-container > .views {
-  position: absolute;
-  bottom: 4px;
-  right: 8px;
-  color: #FFF;
-  font-size: 12px;
+.timeline > .item > .img-container.no-thumb {
+  min-height: 25px;
+}
+.timeline > .item > .img-container.no-thumb > .placement {
+  top: 0;
+  border-radius: 0;
+  text-align: right;
+  width: 100%;
 }
 .timeline > .item > .date {
+  padding: 16px 16px 8px;
+  font-size: 12px;
+  color: #BDBDBD;
+}
+.timeline > .item > .views {
+  float: right;
   padding: 16px 16px 8px;
   font-size: 12px;
   color: #BDBDBD;
@@ -147,4 +155,34 @@ body,
   font-weight: 500;
   text-transform: uppercase;
   border-radius: 0;
+}
+.timeline > .more {
+  margin: 24px 16px 24px 24px;
+}
+@media (min-width: 340px) {
+  .timeline > .more {
+    margin: 24px auto;
+  }
+}
+.timeline > .more > .more-button {
+  max-width: 280px;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  background: #F44336;
+  border-radius: 2px;
+  color: white;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  text-align: center;
+}
+@media (min-width: 340px) {
+  .timeline > .more > .more-button {
+    margin: 0 auto;
+  }
+}
+.timeline > .more > .more-button:hover,
+.timeline > .more > .more-button:focus {
+  background: #ea1c0d;
 }
