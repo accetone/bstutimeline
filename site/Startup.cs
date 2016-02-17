@@ -42,6 +42,10 @@ namespace site
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
+
+            services.AddScoped<IDataContext>(provider => provider.GetService<DataContext>());
+            services.AddScoped<INewsRepository, NewsRepository>();
+            services.AddScoped<INewsService, NewsService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
