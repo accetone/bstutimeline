@@ -53,6 +53,16 @@ namespace site
                 options.ThumbsDesktopFilename = Configuration["fs:thumbs-desktop-filename"];
                 options.ThumbsMobileFilename = Configuration["fs:thumbs-mobile-filename"];
             });
+
+            if (Configuration["env"] == "dev")
+            {
+                // services.AddSingleton<IImageService, HttpImageService>();
+                services.AddSingleton<IImageService, DirectImageService>();
+            }
+            else
+            {
+                services.AddSingleton<IImageService, FileImageService>();
+            }
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
