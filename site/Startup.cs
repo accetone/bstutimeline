@@ -36,6 +36,12 @@ namespace site
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
+
+            var connectionString = Configuration["db:bstu-mssql"];
+
+            services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
