@@ -1,14 +1,23 @@
 ﻿using System.Net.Http;
+using Microsoft.Extensions.OptionsModel;
 using site.Data.Abscract;
 using site.Domain;
+using site.Options;
 
 namespace site.Data
 {
     public class HttpImageService : IImageService
     {
+        private FileSystem FsOptions { get; }
+
+        public HttpImageService(IOptions<FileSystem> options)
+        {
+            FsOptions = options.Value;
+        }
+
         public string GetThumbUrl(News news)
         {
-            var url = $"https://www.belstu.by/usdata/news/{news.GroupId}/previewbig.jpg";
+            var url = $"https://www.belstu.by/usdata/news/{news.GroupId}/{FsOptions.ThumbsFilename}";
 
             var client = new HttpClient();
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
