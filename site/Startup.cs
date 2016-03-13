@@ -55,13 +55,16 @@ namespace site
 
             if (Configuration["env"] == "dev")
             {
-                // services.AddSingleton<IImageService, HttpImageService>();
-                services.AddSingleton<IImageService, DirectImageService>();
+                //services.AddSingleton<IImageRepository, HttpImageRepository>();
+                services.AddSingleton<IImageRepository, DirectImageRepository>();
             }
             else
             {
-                services.AddSingleton<IImageService, FileImageService>();
+                services.AddSingleton<IImageRepository, FileImageRepository>();
             }
+
+            services.AddSingleton<IImageCache, ImageCache>();
+            services.AddSingleton<IImageService, ImageService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
