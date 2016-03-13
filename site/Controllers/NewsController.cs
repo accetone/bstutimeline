@@ -21,7 +21,7 @@ namespace site.Controllers
         [HttpGet]
         public IEnumerable<NewsDto> Feed(int skip, int take)
         {
-            if (take == 0) take = 10;
+            if (take == 0 || take > 50) take = 10;
 
             return NewsService
                 .ReadChunk(skip, take)
