@@ -28,5 +28,14 @@ namespace site.Controllers
                 .Select(x => new NewsDto(x, ImageService))
                 .ToList();
         }
+        
+        [HttpGet]
+        public IEnumerable<NewsDto> Actual()
+        {
+            return NewsService
+                .ReadActual()
+                .Select(x => new NewsDto(x, ImageService))
+                .ToList();
+        }
     }
 }
