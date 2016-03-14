@@ -18,11 +18,6 @@ namespace site
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile("privatesettings.json");
 
-            if (env.IsEnvironment("Development"))
-            {
-                builder.AddApplicationInsightsSettings(developerMode: true);
-            }
-
             builder.AddEnvironmentVariables();
             Configuration = builder.Build()
                 .ReloadOnChanged("appsettings.json")
@@ -33,8 +28,6 @@ namespace site
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApplicationInsightsTelemetry(Configuration);
-
             services.AddMvc();
 
             var connectionString = Configuration["db:bstu-mssql"];
@@ -74,9 +67,6 @@ namespace site
 
             app.UseIISPlatformHandler();
 
-            app.UseApplicationInsightsRequestTelemetry();
-
-            app.UseApplicationInsightsExceptionTelemetry();
             app.UseDefaultFiles(new Microsoft.AspNet.StaticFiles.DefaultFilesOptions { DefaultFileNames = new[] { "index.html" } });
             app.UseStaticFiles();
             
