@@ -127,6 +127,10 @@ body,
   -o-transform: scale(1) rotate(0deg);
   -webkit-transform: scale(1) rotate(0deg);
   transform: scale(1) rotate(0deg);
+  cursor: pointer;
+}
+.to-top:hover {
+  background: #d2190b;
 }
 .to-top.hidden {
   -moz-transform: scale(0) rotate(720deg);

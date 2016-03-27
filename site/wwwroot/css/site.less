@@ -159,6 +159,12 @@ html, body, .canvas {
     .transition(all 0.5s ease);
     .transform(scale(1) rotate(0deg));
 
+    cursor: pointer;
+
+    &:hover {
+        background: darken(@primary, 15%);
+    }
+
     &.hidden {
         .transform(scale(0) rotate(720deg));
     }
