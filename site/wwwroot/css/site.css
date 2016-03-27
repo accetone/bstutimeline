@@ -105,7 +105,7 @@ body,
 }
 .to-top {
   position: fixed;
-  bottom: 32px;
+  bottom: 16px;
   right: 16px;
   width: 56px;
   height: 56px;
@@ -116,22 +116,22 @@ body,
   color: #FFF;
   background: #F44336;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  -moz-transition: transform 0.3s ease;
-  -o-transition: transform 0.3s ease;
-  -webkit-transition: transform 0.3s ease;
-  transition: transform 0.3s ease;
-  -moz-transform: scale(1);
-  -ms-transform: scale(1);
-  -o-transform: scale(1);
-  -webkit-transform: scale(1);
-  transform: scale(1);
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  -moz-transform: scale(1) rotate(0deg);
+  -ms-transform: scale(1) rotate(0deg);
+  -o-transform: scale(1) rotate(0deg);
+  -webkit-transform: scale(1) rotate(0deg);
+  transform: scale(1) rotate(0deg);
 }
 .to-top.hidden {
-  -moz-transform: scale(0);
-  -ms-transform: scale(0);
-  -o-transform: scale(0);
-  -webkit-transform: scale(0);
-  transform: scale(0);
+  -moz-transform: scale(0) rotate(720deg);
+  -ms-transform: scale(0) rotate(720deg);
+  -o-transform: scale(0) rotate(720deg);
+  -webkit-transform: scale(0) rotate(720deg);
+  transform: scale(0) rotate(720deg);
 }
 .timeline-types {
   position: relative;
