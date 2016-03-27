@@ -51,7 +51,9 @@ body,
   clear: both;
 }
 .canvas > .container {
-  padding: 16px 0;
+  position: relative;
+  min-height: 100%;
+  padding: 16px 0 216px;
 }
 .logo {
   padding-left: 24px;
@@ -132,6 +134,38 @@ body,
   -o-transform: scale(0) rotate(720deg);
   -webkit-transform: scale(0) rotate(720deg);
   transform: scale(0) rotate(720deg);
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 24px 16px 24px 24px;
+  color: #FFF;
+  background: #424242;
+}
+.footer .title {
+  font-size: 20px;
+  height: 32px;
+  margin-bottom: 24px;
+}
+.footer .title .text {
+  display: inline;
+  border-bottom: 2px solid #F44336;
+  padding: 4px;
+}
+.footer .links .link {
+  margin-bottom: 12px;
+}
+.footer .links .link.last {
+  margin-bottom: 0;
+}
+.footer .links .link a {
+  font-size: 16px;
+  text-decoration: none;
+  color: #757575;
+}
+.footer .links .link a:hover {
+  color: #F44336;
 }
 .timeline-types {
   position: relative;

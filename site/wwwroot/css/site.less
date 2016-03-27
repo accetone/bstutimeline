@@ -79,7 +79,9 @@ html, body, .canvas {
 
 .canvas {
     > .container {
-        padding: 16px 0;
+        position: relative;
+        min-height: 100%;
+        padding: 16px 0 216px;
     }
 }
 
@@ -159,6 +161,48 @@ html, body, .canvas {
 
     &.hidden {
         .transform(scale(0) rotate(720deg));
+    }
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 24px 16px 24px 24px;    
+
+    color: @background-2;
+    background: #424242;
+
+    .title {
+        font-size: 20px;
+        height: 32px;
+        margin-bottom: 24px;
+
+        .text {
+            display: inline;
+            border-bottom: 2px solid @primary;
+            padding: 4px;
+        }
+    }
+
+    .links {
+        .link {
+            margin-bottom: 12px;
+
+            &.last {
+                margin-bottom: 0;
+            }
+
+            a {            
+                font-size: 16px;    
+                text-decoration: none;
+                color: #757575;            
+
+                &:hover {
+                    color: @primary;
+                }
+            }
+        }
     }
 }
 
