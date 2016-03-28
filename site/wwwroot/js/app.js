@@ -79,12 +79,20 @@
         return self;
     };
 
-    var feedCtrl = function ($scope, feedSvc, loadingSvc) {
+    var feedCtrl = function ($scope, $window, analyticsSvc, feedSvc, loadingSvc) {
         $scope.news = feedSvc.data;
 
         $scope.readMore = function () {
             if (loadingSvc.is()) return;
             feedSvc.read();
+
+            analyticsSvc.click('Feed', 'Read More');
+        };
+
+        $scope.read = function(url) {
+            $window.open(url, '_blank');
+
+            analyticsSvc.click('Feed', 'Read');
         };
 
         if (feedSvc.data.length === 0) feedSvc.read();
@@ -149,6 +157,30 @@
             link: link
         };
     };
+
+    var analyticsSvc = function ($timeout) {
+        var self = this;
+
+        self.counters = {};
+
+        self.getCounter = function(key) {
+            if (self.counters.hasOwnProperty(key)) {
+                self.counters[key]++;
+                return self.counters[key];
+            } else {
+                self.counters[key] = 1;
+                return 1;
+            }
+        };
+
+        self.click = function (category, label) {
+            var counter = self.getCounter(category + label);
+
+            ga('send', 'event', category, 'click', label + ' #' + counter);
+        };
+
+        return self;
+    };
     
     angular
         .module('timeline', [])
@@ -157,10 +189,12 @@
         .controller('RootCtrl', ['$scope', 'TypesSvc', 'LoadingSvc', 'FeedSvc', 'ActualSvc', rootCtrl])
 
         .factory('FeedSvc', ['$http', 'LoadingSvc', feedSvc])
-        .controller('FeedCtrl', ['$scope', 'FeedSvc', 'LoadingSvc', feedCtrl])
+        .controller('FeedCtrl', ['$scope', '$window', 'AnalyticsSvc', 'FeedSvc', 'LoadingSvc', feedCtrl])
 
         .factory('ActualSvc', ['$http', 'LoadingSvc', actualSvc])
         .controller('ActualCtrl', ['$scope', '$window', 'ActualSvc', 'TypesSvc', actualCtrl])
 
-        .directive('toTop', ['$window', toTopDirective]);
+        .directive('toTop', ['$window', toTopDirective])
+
+        .factory('AnalyticsSvc', ['$timeout', analyticsSvc]);
 })();

@@ -119,7 +119,7 @@
             </div>
 
             <div class="actions" ng-class="{ 'out': newsItem.showSocials }">
-                <a class="action" href="{{ newsItem.Url }}" target="_blank">Читать</a>
+                <a class="action" ng-click="read(newsItem.Url)" >Читать</a>
                 <a class="action" ng-click="newsItem.showSocials = true">Поделиться</a>
             </div>
 
