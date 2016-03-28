@@ -89,7 +89,7 @@
             analyticsSvc.click('Feed', 'Read More');
         };
 
-        $scope.read = function(url) {
+        $scope.open = function(url) {
             $window.open(url, '_blank');
 
             analyticsSvc.click('Feed', 'Read');
@@ -121,12 +121,20 @@
         return self;
     };
 
-    var actualCtrl = function ($scope, $window, actualSvc, typesSvc) {
+    var actualCtrl = function ($scope, $window, analyticsSvc, actualSvc, typesSvc) {
         $scope.news = actualSvc.data;
 
         $scope.goToFeed = function () {
             typesSvc.activate('feed');
             $window.scrollTo(0, 0);
+
+            analyticsSvc.click('Actual', 'Go to feed');
+        };
+
+        $scope.open = function (url) {
+            $window.open(url, '_blank');
+
+            analyticsSvc.click('Actual', 'Read');
         };
 
         if (actualSvc.data.length === 0) actualSvc.read();
@@ -192,7 +200,7 @@
         .controller('FeedCtrl', ['$scope', '$window', 'AnalyticsSvc', 'FeedSvc', 'LoadingSvc', feedCtrl])
 
         .factory('ActualSvc', ['$http', 'LoadingSvc', actualSvc])
-        .controller('ActualCtrl', ['$scope', '$window', 'ActualSvc', 'TypesSvc', actualCtrl])
+        .controller('ActualCtrl', ['$scope', '$window', 'AnalyticsSvc', 'ActualSvc', 'TypesSvc', actualCtrl])
 
         .directive('toTop', ['$window', toTopDirective])
 
