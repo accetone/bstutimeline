@@ -47,6 +47,14 @@ body,
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+::selection {
+  background: #F44336;
+  color: #FFF;
+}
+::-moz-selection {
+  background: #F44336;
+  color: #FFF;
+}
 .clear {
   clear: both;
 }

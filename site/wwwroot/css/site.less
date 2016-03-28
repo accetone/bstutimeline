@@ -73,6 +73,16 @@ html, body, .canvas {
     box-sizing: border-box;
 }
 
+::selection {   
+    background: @primary; 
+    color: @background-2;  
+}
+
+::-moz-selection { 
+    background: @primary; 
+    color: @background-2; 
+}
+
 .clear {
     clear: both;
 }
