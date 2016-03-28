@@ -24,6 +24,7 @@ namespace site.Data
                 .Include(x => x.ShowplaceCategory)
                 .Include(x => x.ShowplaceCategory.Showplace)
 
+                .Where(x => x.IsModerated)
                 .OrderByDescending(x => x.Id)
 
                 .GroupBy(x => x.GroupId)
@@ -45,6 +46,7 @@ namespace site.Data
                 .Include(x => x.ShowplaceCategory)
                 .Include(x => x.ShowplaceCategory.Showplace)
 
+                .Where(x => x.IsModerated)
                 .Where(x => x.StartDate >= start && x.StartDate < end)
                 .OrderByDescending(x => x.StartDate)
 
