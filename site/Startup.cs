@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Data.Entity;
 using site.Data;
 using site.Data.Abscract;
+using site.Data.Services;
 using site.Options;
 
 namespace site
@@ -38,7 +39,8 @@ namespace site
 
             services.AddScoped<IDataContext>(provider => provider.GetService<DataContext>());
             services.AddScoped<INewsRepository, NewsRepository>();
-            services.AddScoped<INewsService, NewsService>();
+            services.AddScoped<IFeedNewsService, FeedNewsService>();
+            services.AddScoped<IUpcomingNewsService, UpcomingNewsService>();
 
             services.Configure<FileSystem>(options =>
             {

@@ -29,23 +29,10 @@
 
                 <div ng-if="types.isActive('feed')" ng-controller="FeedCtrl">
                     <ng-include src="'news.html'"></ng-include>
-
-                    <div class="more" ng-click="readMore()" ng-show="news.length > 0">
-                        <div class="more-button" ng-class="{ 'loading': showSpinnerSmall() }">
-                            <i class="fa fa-refresh" ng-show="showSpinnerSmall()"></i>
-                            Ещё новости
-                        </div>
-                    </div>
                 </div>
 
-                <div ng-if="types.isActive('actual')" ng-controller="ActualCtrl">
+                <div ng-if="types.isActive('upcoming')" ng-controller="UpcomingCtrl">
                     <ng-include src="'news.html'"></ng-include>
-
-                    <div class="more" ng-click="goToFeed()">
-                        <div class="more-button">
-                            К ленте
-                        </div>
-                    </div>
                 </div>
 
             </div>
@@ -142,6 +129,12 @@
             </div>
         </div>
     
+        <div class="more" ng-click="readMore()" ng-show="news.length > 0">
+            <div class="more-button" ng-class="{ 'loading': showSpinnerSmall() }">
+                <i class="fa fa-refresh" ng-show="showSpinnerSmall()"></i>
+                Ещё новости
+            </div>
+        </div>
     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>

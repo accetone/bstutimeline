@@ -9,12 +9,14 @@ namespace site.Controllers
     [Route("api/[controller]/[action]")]
     public class NewsController : Controller
     {
-        private INewsService NewsService { get; }
+        private IFeedNewsService FeedService { get; }
+        private IUpcomingNewsService UpcomingService { get; }
         private IImageService ImageService { get; }
 
-        public NewsController(INewsService newsService, IImageService imageService)
-        {  
-            NewsService = newsService;
+        public NewsController(IFeedNewsService feedService, IUpcomingNewsService upcomingService, IImageService imageService)
+        {
+            FeedService = feedService;
+            UpcomingService = upcomingService;
             ImageService = imageService;
         }
 
@@ -23,17 +25,19 @@ namespace site.Controllers
         {
             if (take == 0 || take > 50) take = 10;
 
-            return NewsService
+            return FeedService
                 .ReadChunk(skip, take)
                 .Select(x => new NewsDto(x, ImageService))
                 .ToList();
         }
         
         [HttpGet]
-        public IEnumerable<NewsDto> Actual()
+        public IEnumerable<NewsDto> Upcoming(int skip, int take)
         {
-            return NewsService
-                .ReadActual()
+            if (take == 0 || take > 50) take = 10;
+
+            return UpcomingService
+                .ReadChunk(skip, take)
                 .Select(x => new NewsDto(x, ImageService))
                 .ToList();
         }

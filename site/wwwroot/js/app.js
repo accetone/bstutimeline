@@ -6,7 +6,7 @@
 
         self.list = [
             { id: 'feed', text: 'Лента' },
-            { id: 'actual', text: 'Актуальное' }
+            { id: 'upcoming', text: 'Ближайшее' }
         ];
 
         self.active = self.list[0].id;
@@ -44,12 +44,12 @@
         return self;
     };
 
-    var rootCtrl = function ($scope, typesSvc, loadingSvc, feedSvc, actualSvc) {
+    var rootCtrl = function ($scope, typesSvc, loadingSvc, feedSvc, upcomingSvc) {
         $scope.types = typesSvc;
 
         $scope.showSpinner = function() {
             return loadingSvc.is()
-                && ((feedSvc.data.length === 0 && typesSvc.isActive('feed')) || (actualSvc.data.length === 0 && typesSvc.isActive('actual')));
+                && ((feedSvc.data.length === 0 && typesSvc.isActive('feed')) || (upcomingSvc.data.length === 0 && typesSvc.isActive('upcoming')));
         };
 
         $scope.showSpinnerSmall = function() {
@@ -100,7 +100,7 @@
         if (feedSvc.data.length === 0) feedSvc.read();
     };
 
-    var actualSvc = function ($http, loadingSvc) {
+    var upcomingSvc = function ($http, loadingSvc) {
         var self = this;
 
         self.data = [];
@@ -109,7 +109,7 @@
             loadingSvc.begin();
 
             $http
-                .get('/api/news/actual')
+                .get('/api/news/upcoming?skip=' + self.data.length)
                 .then(function (response) {
                     for (var i = 0; i < response.data.length; i++) {
                         self.data.push(response.data[i]);
@@ -123,23 +123,23 @@
         return self;
     };
 
-    var actualCtrl = function ($scope, $window, analyticsSvc, actualSvc, typesSvc) {
-        $scope.news = actualSvc.data;
+    var upcomingCtrl = function ($scope, $window, analyticsSvc, upcomingSvc, loadingSvc) {
+        $scope.news = upcomingSvc.data;
 
-        $scope.goToFeed = function () {
-            typesSvc.activate('feed');
-            $window.scrollTo(0, 0);
+        $scope.readMore = function () {
+            if (loadingSvc.is()) return;
+            upcomingSvc.read();
 
-            analyticsSvc.click('Actual', 'Go to feed');
+            analyticsSvc.click('Upcoming', 'Read More');
         };
 
         $scope.open = function (url) {
             $window.open(url, '_blank');
 
-            analyticsSvc.click('Actual', 'Read');
+            analyticsSvc.click('Upcoming', 'Read');
         };
 
-        if (actualSvc.data.length === 0) actualSvc.read();
+        if (upcomingSvc.data.length === 0) upcomingSvc.read();
     };
 
     var toTopDirective = function ($window) {
@@ -151,6 +151,9 @@
 
             angular.element($window).on('scroll', function () {
                 if ($window.document.body.scrollTop > showAfter) {
+                    
+                }
+                else if ($window.document.body.scrollTop > showAfter) {
                     element.removeClass('hidden');
                 } else {
                     element.addClass('hidden');
@@ -196,13 +199,13 @@
         .module('timeline', [])
         .factory('TypesSvc', ['AnalyticsSvc', typesSvc])
         .factory('LoadingSvc', [loadingSvc])
-        .controller('RootCtrl', ['$scope', 'TypesSvc', 'LoadingSvc', 'FeedSvc', 'ActualSvc', rootCtrl])
+        .controller('RootCtrl', ['$scope', 'TypesSvc', 'LoadingSvc', 'FeedSvc', 'UpcomingSvc', rootCtrl])
 
         .factory('FeedSvc', ['$http', 'LoadingSvc', feedSvc])
         .controller('FeedCtrl', ['$scope', '$window', 'AnalyticsSvc', 'FeedSvc', 'LoadingSvc', feedCtrl])
 
-        .factory('ActualSvc', ['$http', 'LoadingSvc', actualSvc])
-        .controller('ActualCtrl', ['$scope', '$window', 'AnalyticsSvc', 'ActualSvc', 'TypesSvc', actualCtrl])
+        .factory('UpcomingSvc', ['$http', 'LoadingSvc', upcomingSvc])
+        .controller('UpcomingCtrl', ['$scope', '$window', 'AnalyticsSvc', 'UpcomingSvc', 'LoadingSvc', upcomingCtrl])
 
         .directive('toTop', ['$window', toTopDirective])
 

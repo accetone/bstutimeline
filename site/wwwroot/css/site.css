@@ -217,11 +217,11 @@ body,
     left: 126px;
   }
 }
-.timeline-types > .item.actual {
+.timeline-types > .item.upcoming {
   left: 96px;
 }
 @media (min-width: 340px) {
-  .timeline-types > .item.actual {
+  .timeline-types > .item.upcoming {
     left: 72px;
   }
 }
@@ -229,12 +229,12 @@ body,
   color: #F44336;
 }
 .timeline-types > .item.active.feed,
-.timeline-types > .item.active.actual {
+.timeline-types > .item.active.upcoming {
   left: 24px;
 }
 @media (min-width: 340px) {
   .timeline-types > .item.active.feed,
-  .timeline-types > .item.active.actual {
+  .timeline-types > .item.active.upcoming {
     left: 0;
   }
 }
