@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    var typesSvc = function() {
+    var typesSvc = function (analyticsSvc) {
         var self = this;
 
         self.list = [
@@ -17,6 +17,8 @@
 
         self.activate = function (type) {
             self.active = type;
+
+            analyticsSvc.click('Go to', type);
         };
 
         return self;
@@ -192,7 +194,7 @@
     
     angular
         .module('timeline', [])
-        .factory('TypesSvc', ['$window', typesSvc])
+        .factory('TypesSvc', ['AnalyticsSvc', typesSvc])
         .factory('LoadingSvc', [loadingSvc])
         .controller('RootCtrl', ['$scope', 'TypesSvc', 'LoadingSvc', 'FeedSvc', 'ActualSvc', rootCtrl])
 
