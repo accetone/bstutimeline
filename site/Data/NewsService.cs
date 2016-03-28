@@ -18,6 +18,8 @@ namespace site.Data
 
         public IEnumerable<News> ReadChunk(int skip, int take)
         {
+            var date = DateTime.Now.Date.AddDays(1);
+
             return NewsRepository
                 .GetAll()
 
@@ -25,7 +27,8 @@ namespace site.Data
                 .Include(x => x.ShowplaceCategory.Showplace)
 
                 .Where(x => x.IsModerated)
-                .OrderByDescending(x => x.Id)
+                .Where(x => x.StartDate < date)
+                .OrderByDescending(x => x.StartDate)
 
                 .GroupBy(x => x.GroupId)
                 .Skip(skip)
@@ -46,7 +49,6 @@ namespace site.Data
                 .Include(x => x.ShowplaceCategory)
                 .Include(x => x.ShowplaceCategory.Showplace)
 
-                .Where(x => x.IsModerated)
                 .Where(x => x.StartDate >= start && x.StartDate < end)
                 .OrderByDescending(x => x.StartDate)
 
