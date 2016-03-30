@@ -105,25 +105,25 @@
                 {{ newsItem.Title }}
             </div>
 
-            <div class="actions" ng-class="{ 'out': newsItem.showSocials }">
-                <a class="action" ng-click="open(newsItem.Url)" >Читать</a>
-                <a class="action" ng-click="newsItem.showSocials = true">Поделиться</a>
+            <div class="actions" ng-class="{ 'out': newsItem.socials }">
+                <a class="action" ng-click="open(newsItem)" >Читать</a>
+                <a class="action" ng-click="toggleSocials(newsItem)">Поделиться</a>
             </div>
 
-            <div class="socials" ng-class="{ 'in': newsItem.showSocials }">
-                <a target="_blank" href="http://vk.com/share.php?url={{ newsItem.Url }}">
+            <div class="socials" ng-class="{ 'in': newsItem.socials }">
+                <a ng-click="shareVk(newsItem)">
                     <i class="fa fa-vk"></i>
                 </a>
 
-                <a target="_blank" href="https://twitter.com/intent/tweet?text={{ newsItem.Title }}&url={{ newsItem.Url }}&via=bstutimeline">
+                <a ng-click="shareTw(newsItem)">
                     <i class="fa fa-twitter"></i>
                 </a>
 
-                <a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u={{ newsItem.Url }}">
+                <a ng-click="shareFb(newsItem)">
                     <i class="fa fa-facebook"></i>
                 </a>
 
-                <a class="close" ng-click="newsItem.showSocials = false">
+                <a class="close" ng-click="toggleSocials(newsItem)">
                     НАЗАД
                 </a>
             </div>
