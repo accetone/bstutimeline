@@ -211,9 +211,6 @@
 
             angular.element($window).on('scroll', function () {
                 if ($window.document.body.scrollTop > showAfter) {
-                    
-                }
-                else if ($window.document.body.scrollTop > showAfter) {
                     element.removeClass('hidden');
                 } else {
                     element.addClass('hidden');
