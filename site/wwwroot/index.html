@@ -18,20 +18,20 @@
 
             <div class="timeline-types">
                 <div class="item {{ type.id }}"
-                     ng-repeat="type in types.list"
-                     ng-class="{ 'active': types.isActive(type.id) }"
-                     ng-click="types.activate(type.id)">
+                     ng-repeat="type in root.types.list"
+                     ng-class="{ 'active': root.types.isActive(type.id) }"
+                     ng-click="root.types.activate(type.id)">
                     {{ type.text }}
                 </div>
             </div>
 
             <div class="timeline">
 
-                <div ng-if="types.isActive('feed')" ng-controller="NewsCtrl" ng-init="news.init('Feed')">
+                <div ng-if="root.types.isActive('feed')" ng-controller="NewsCtrl" ng-init="news.init('Feed')">
                     <ng-include src="'news.html'"></ng-include>
                 </div>
 
-                <div ng-if="types.isActive('upcoming')" ng-controller="NewsCtrl" ng-init="news.init('Upcoming')">
+                <div ng-if="root.types.isActive('upcoming')" ng-controller="NewsCtrl" ng-init="news.init('Upcoming')">
                     <ng-include src="'news.html'"></ng-include>
                 </div>
 
