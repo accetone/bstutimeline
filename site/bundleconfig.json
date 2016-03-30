@@ -2,7 +2,10 @@
   {
     "outputFileName": "wwwroot/js/app.js",
     "inputFiles": [
-      "wwwroot/js/app.js"
+        "wwwroot/js/module.js",
+        "wwwroot/js/*.js",
+        "!wwwroot/js/*.min.js",
+        "!wwwroot/js/app.js"
     ]
   }
 ]

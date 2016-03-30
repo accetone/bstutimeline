@@ -17,21 +17,21 @@
             </div>
 
             <div class="timeline-types">
-                <div class="item {{type.id}}"
+                <div class="item {{ type.id }}"
                      ng-repeat="type in types.list"
                      ng-class="{ 'active': types.isActive(type.id) }"
                      ng-click="types.activate(type.id)">
-                    {{type.text}}
+                    {{ type.text }}
                 </div>
             </div>
 
             <div class="timeline">
 
-                <div ng-if="types.isActive('feed')" ng-controller="FeedCtrl">
+                <div ng-if="types.isActive('feed')" ng-controller="NewsCtrl" ng-init="news.init('Feed')">
                     <ng-include src="'news.html'"></ng-include>
                 </div>
 
-                <div ng-if="types.isActive('upcoming')" ng-controller="UpcomingCtrl">
+                <div ng-if="types.isActive('upcoming')" ng-controller="NewsCtrl" ng-init="news.init('Upcoming')">
                     <ng-include src="'news.html'"></ng-include>
                 </div>
 
@@ -83,53 +83,53 @@
 
     <script type="text/ng-template" id="news.html">
     
-        <div class="item" ng-repeat="newsItem in news">
-            <div class="img-container" ng-class="{ 'no-thumb': !newsItem.Thumb }">
-                <div ng-show="newsItem.Thumb" class="img" ng-style="{ 'background-image': 'url(' + newsItem.Thumb + ')' }"></div>
+        <div class="item" ng-repeat="item in news.getData()">
+            <div class="img-container" ng-class="{ 'no-thumb': !item.Thumb }">
+                <div ng-show="item.Thumb" class="img" ng-style="{ 'background-image': 'url(' + item.Thumb + ')' }"></div>
 
                 <div class="placement">
-                    {{ newsItem.Place }}
+                    {{ item.Place }}
                 </div>
             </div>
 
             <div class="views">
                 <i class="fa fa-eye"></i>
-                {{ newsItem.Views }}
+                {{ item.Views }}
             </div>
 
             <div class="date">
-                {{newsItem.Date}}
+                {{item.Date}}
             </div>
 
             <div class="title">
-                {{ newsItem.Title }}
+                {{ item.Title }}
             </div>
 
-            <div class="actions" ng-class="{ 'out': newsItem.socials }">
-                <a class="action" ng-click="open(newsItem)" >Читать</a>
-                <a class="action" ng-click="toggleSocials(newsItem)">Поделиться</a>
+            <div class="actions" ng-class="{ 'out': item.socials }">
+                <a class="action" ng-click="news.open(item)" >Читать</a>
+                <a class="action" ng-click="news.toggleSocials(item)">Поделиться</a>
             </div>
 
-            <div class="socials" ng-class="{ 'in': newsItem.socials }">
-                <a ng-click="shareVk(newsItem)">
+            <div class="socials" ng-class="{ 'in': item.socials }">
+                <a ng-click="news.share.vk(item)">
                     <i class="fa fa-vk"></i>
                 </a>
 
-                <a ng-click="shareTw(newsItem)">
+                <a ng-click="news.share.tw(item)">
                     <i class="fa fa-twitter"></i>
                 </a>
 
-                <a ng-click="shareFb(newsItem)">
+                <a ng-click="news.share.fb(newsItem)">
                     <i class="fa fa-facebook"></i>
                 </a>
 
-                <a class="close" ng-click="toggleSocials(newsItem)">
+                <a class="close" ng-click="news.toggleSocials(item)">
                     НАЗАД
                 </a>
             </div>
         </div>
     
-        <div class="more" ng-click="readMore()" ng-show="news.length > 0">
+        <div class="more" ng-click="news.readMore()" ng-show="news.getData().length > 0">
             <div class="more-button" ng-class="{ 'loading': showSpinnerSmall() }">
                 <i class="fa fa-refresh" ng-show="showSpinnerSmall()"></i>
                 Ещё новости
@@ -143,7 +143,7 @@
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m);
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
       ga('create', 'UA-62450305-3', 'auto');

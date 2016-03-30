@@ -1,206 +1,111 @@
-﻿(function () {
+(function () {
     'use strict';
 
-    var typesSvc = function (analyticsSvc) {
+    angular.module('timeline', []);
+})();
+(function () {
+    'use strict';
+
+    var newsCtrl = function ($scope, $window, analyticsSvc, newsSvc, loadingSvc) {
         var self = this;
 
-        self.list = [
-            { id: 'feed', text: 'Лента' },
-            { id: 'upcoming', text: 'Ближайшее' }
-        ];
+        self.type = undefined;
 
-        self.active = self.list[0].id;
+        self.init = function(type) {
+            self.type = type;
 
-        self.isActive = function (type) {
-            return self.active === type;
+            if (newsSvc.getData(type).length === 0) newsSvc.read(type);
         };
 
-        self.activate = function (type) {
-            self.active = type;
-
-            analyticsSvc.click('Go to', type);
+        self.getData = function() {
+            return newsSvc.getData(self.type);
         };
 
-        return self;
+        self.readMore = function () {
+            if (loadingSvc.is()) return;
+
+            newsSvc.read(self.type);
+
+            analyticsSvc.click(self.type, 'Read More');
+        };
+
+        self.open = function(news) {
+            $window.open(news.Url, '_blank');
+
+            analyticsSvc.click(self.type, 'Read');
+        };
+
+        self.toggleSocials = function (news) {
+            if (!news.socials) {
+                news.socials = true;
+
+                analyticsSvc.click(self.type, 'Open Share');
+            } else {
+                news.socials = false;
+
+                analyticsSvc.click(self.type, 'Close Share');
+            }
+        };
+
+        self.shareVk = function (news) {
+            $window.open('http://vk.com/share.php?url=' + news.Url, '_blank');
+
+            analyticsSvc.click(self.type, 'Share with VK');
+        };
+
+        self.shareTw = function (news) {
+            $window.open('https://twitter.com/intent/tweet?text=' + news.Title + '&url=' + news.Url + '&via=bstutimeline', '_blank');
+
+            analyticsSvc.click(self.type, 'Share with Twitter');
+        };
+
+        self.shareFb = function (news) {
+            $window.open('http://www.facebook.com/sharer/sharer.php?u=' + news.Url, '_blank');
+
+            analyticsSvc.click(self.type, 'Share with FB');
+        };
+
+        $scope.news = {
+            init: self.init,
+            getData: self.getData,
+            readMore: self.readMore,
+            open: self.open,
+            toggleSocials: self.toggleSocials,
+            share: {
+                vk: self.shareVk,
+                tw: self.shareTw,
+                fb: self.shareFb
+            }
+        };
     };
 
-    var loadingSvc = function() {
-        var self = this;
+    angular
+        .module('timeline')
+        .controller('NewsCtrl', ['$scope', '$window', 'AnalyticsSvc', 'NewsSvc', 'LoadingSvc', newsCtrl]);
+})();
+(function () {
+	'use strict';
 
-        self.queue = [];
+	var rootCtrl = function ($scope, typesSvc, loadingSvc, newsSvc) {
+	    $scope.types = typesSvc;
 
-        self.is = function() {
-            return self.queue.length !== 0;
-        };
-
-        self.begin = function() {
-            self.queue.push(0);
-        };
-
-        self.end = function() {
-            self.queue.pop();
-        };
-
-        return self;
-    };
-
-    var rootCtrl = function ($scope, typesSvc, loadingSvc, feedSvc, upcomingSvc) {
-        $scope.types = typesSvc;
-
-        $scope.showSpinner = function() {
-            return loadingSvc.is()
+	    /*$scope.showSpinner = function () {
+	        return loadingSvc.is()
                 && ((feedSvc.data.length === 0 && typesSvc.isActive('feed')) || (upcomingSvc.data.length === 0 && typesSvc.isActive('upcoming')));
-        };
+	    };
 
-        $scope.showSpinnerSmall = function() {
-            return loadingSvc.is()
+	    $scope.showSpinnerSmall = function () {
+	        return loadingSvc.is()
                 && feedSvc.data.length > 0;
-        };
-    };
+	    };*/
+	};
 
-    var feedSvc = function ($http, loadingSvc) {
-        var self = this;
-
-        self.data = [];
-
-        self.read = function () {
-            loadingSvc.begin();
-
-            $http
-                .get('/api/news/feed?skip=' + self.data.length)
-                .then(function (response) {
-                    for (var i = 0; i < response.data.length; i++) {
-                        self.data.push(response.data[i]);
-                    }
-                })
-                .finally(function() {
-                    loadingSvc.end();
-                });
-        };
-
-        return self;
-    };
-
-    var feedCtrl = function ($scope, $window, analyticsSvc, feedSvc, loadingSvc) {
-        $scope.news = feedSvc.data;
-
-        $scope.readMore = function () {
-            if (loadingSvc.is()) return;
-            feedSvc.read();
-
-            analyticsSvc.click('Feed', 'Read More');
-        };
-
-        $scope.open = function(news) {
-            $window.open(news.Url, '_blank');
-
-            analyticsSvc.click('Feed', 'Read');
-        };
-
-        $scope.toggleSocials = function (news) {
-            if (!news.socials) {
-                news.socials = true;
-
-                analyticsSvc.click('Feed', 'Open Share');
-            } else {
-                news.socials = false;
-
-                analyticsSvc.click('Feed', 'Close Share');
-            }
-        };
-
-        $scope.shareVk = function (news) {
-            $window.open('http://vk.com/share.php?url=' + news.Url, '_blank');
-
-            analyticsSvc.click('Feed', 'Share with VK');
-        };
-
-        $scope.shareTw = function (news) {
-            $window.open('https://twitter.com/intent/tweet?text=' + news.Title + '&url=' + news.Url + '&via=bstutimeline', '_blank');
-
-            analyticsSvc.click('Feed', 'Share with Twitter');
-        };
-
-        $scope.shareFb = function (news) {
-            $window.open('http://www.facebook.com/sharer/sharer.php?u=' + news.Url, '_blank');
-
-            analyticsSvc.click('Feed', 'Share with FB');
-        };
-
-        if (feedSvc.data.length === 0) feedSvc.read();
-    };
-
-    var upcomingSvc = function ($http, loadingSvc) {
-        var self = this;
-
-        self.data = [];
-
-        self.read = function () {
-            loadingSvc.begin();
-
-            $http
-                .get('/api/news/upcoming?skip=' + self.data.length)
-                .then(function (response) {
-                    for (var i = 0; i < response.data.length; i++) {
-                        self.data.push(response.data[i]);
-                    }
-                })
-                .finally(function () {
-                    loadingSvc.end();
-                });
-        };
-
-        return self;
-    };
-
-    var upcomingCtrl = function ($scope, $window, analyticsSvc, upcomingSvc, loadingSvc) {
-        $scope.news = upcomingSvc.data;
-
-        $scope.readMore = function () {
-            if (loadingSvc.is()) return;
-            upcomingSvc.read();
-
-            analyticsSvc.click('Upcoming', 'Read More');
-        };
-
-        $scope.open = function (news) {
-            $window.open(news.Url, '_blank');
-
-            analyticsSvc.click('Upcoming', 'Read');
-        };
-
-        $scope.toggleSocials = function (news) {
-            if (!news.socials) {
-                news.socials = true;
-
-                analyticsSvc.click('Upcoming', 'Open Share');
-            } else {
-                news.socials = false;
-
-                analyticsSvc.click('Upcoming', 'Close Share');
-            }
-        };
-
-        $scope.shareVk = function (news) {
-            $window.open('http://vk.com/share.php?url=' + news.Url, '_blank');
-
-            analyticsSvc.click('Upcoming', 'Share with VK');
-        };
-
-        $scope.shareTw = function (news) {
-            $window.open('https://twitter.com/intent/tweet?text=' + news.Title + '&url=' + news.Url + '&via=bstutimeline', '_blank');
-
-            analyticsSvc.click('Upcoming', 'Share with Twitter');
-        };
-
-        $scope.shareFb = function (news) {
-            $window.open('http://www.facebook.com/sharer/sharer.php?u=' + news.Url, '_blank');
-
-            analyticsSvc.click('Upcoming', 'Share with FB');
-        };
-
-        if (upcomingSvc.data.length === 0) upcomingSvc.read();
-    };
+    angular
+        .module('timeline')
+        .controller('RootCtrl', ['$scope', 'TypesSvc', 'LoadingSvc', 'NewsSvc', rootCtrl]);
+})();
+(function () {
+    'use strict';
 
     var toTopDirective = function ($window) {
         var link = function (scope, element, attrs) {
@@ -228,12 +133,19 @@
         };
     };
 
+    angular
+        .module('timeline')
+        .directive('toTop', ['$window', toTopDirective]);
+})();
+(function () {
+    'use strict';
+
     var analyticsSvc = function ($timeout) {
         var self = this;
 
         self.counters = {};
 
-        self.getCounter = function(key) {
+        self.getCounter = function (key) {
             if (self.counters.hasOwnProperty(key)) {
                 self.counters[key]++;
                 return self.counters[key];
@@ -251,20 +163,105 @@
 
         return self;
     };
-    
+
     angular
-        .module('timeline', [])
-        .factory('TypesSvc', ['AnalyticsSvc', typesSvc])
-        .factory('LoadingSvc', [loadingSvc])
-        .controller('RootCtrl', ['$scope', 'TypesSvc', 'LoadingSvc', 'FeedSvc', 'UpcomingSvc', rootCtrl])
-
-        .factory('FeedSvc', ['$http', 'LoadingSvc', feedSvc])
-        .controller('FeedCtrl', ['$scope', '$window', 'AnalyticsSvc', 'FeedSvc', 'LoadingSvc', feedCtrl])
-
-        .factory('UpcomingSvc', ['$http', 'LoadingSvc', upcomingSvc])
-        .controller('UpcomingCtrl', ['$scope', '$window', 'AnalyticsSvc', 'UpcomingSvc', 'LoadingSvc', upcomingCtrl])
-
-        .directive('toTop', ['$window', toTopDirective])
-
+        .module('timeline')
         .factory('AnalyticsSvc', ['$timeout', analyticsSvc]);
+})();
+(function () {
+    'use strict';
+
+    var loadingSvc = function () {
+        var self = this;
+
+        self.queue = [];
+
+        self.is = function () {
+            return self.queue.length !== 0;
+        };
+
+        self.begin = function () {
+            self.queue.push(0);
+        };
+
+        self.end = function () {
+            self.queue.pop();
+        };
+
+        return self;
+    };
+
+    angular
+        .module('timeline')
+        .factory('LoadingSvc', [loadingSvc]);
+})();
+(function () {
+	'use strict';
+
+	var newsSvc = function ($http, loadingSvc) {
+		var self = this;
+
+		self.data = {};
+
+		self.getData = function (type) {
+		    if (!self.data[type]) self.data[type] = [];
+
+	        return self.data[type];
+	    };
+
+		self.read = function (type) {
+			loadingSvc.begin();
+
+			if (!self.data[type]) self.data[type] = [];
+
+		    var url = '/api/news/' + type + '?skip=' + self.data[type].length;
+
+			$http
+                .get(url)
+                .then(function (response) {
+                	for (var i = 0; i < response.data.length; i++) {
+                		self.data[type].push(response.data[i]);
+                	}
+                })
+                .finally(function () {
+                	loadingSvc.end();
+                });
+		};
+
+		return self;
+	};
+
+    angular
+        .module('timeline')
+        .factory('NewsSvc', ['$http', 'LoadingSvc', newsSvc]);
+})();
+(function () {
+	'use strict';
+
+	var typesSvc = function (analyticsSvc) {
+	    var self = this;
+
+	    self.list = [
+            { id: 'feed', text: 'Лента' },
+            { id: 'upcoming', text: 'Ближайшее' }
+	    ];
+
+	    self.active = self.list[0].id;
+
+	    self.isActive = function (type) {
+	        return self.active === type;
+	    };
+
+	    self.activate = function (type) {
+	        self.active = type;
+
+	        analyticsSvc.click('Go to', type);
+	    };
+
+	    return self;
+	};
+
+    angular
+        .module('timeline')
+        .factory('TypesSvc', ['AnalyticsSvc', typesSvc]);
 })();
