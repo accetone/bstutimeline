@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Data.Entity;
 using site.Data;
 using site.Data.Abscract;
+using site.Data.Repositories;
 using site.Data.Services;
 using site.Options;
 

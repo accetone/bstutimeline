@@ -2,7 +2,7 @@
 using site.Data.Abscract;
 using site.Domain;
 
-namespace site.Data
+namespace site.Data.Repositories
 {
     public class NewsRepository : INewsRepository
     {

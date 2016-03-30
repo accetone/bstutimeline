@@ -1,7 +1,7 @@
 ﻿using site.Data.Abscract;
 using site.Domain;
 
-namespace site.Data
+namespace site.Data.Services
 {
     public class ImageService : IImageService
     {
