@@ -130,8 +130,8 @@
         </div>
     
         <div class="more" ng-click="news.readMore()" ng-show="news.getData().length > 0">
-            <div class="more-button" ng-class="{ 'loading': showSpinnerSmall() }">
-                <i class="fa fa-refresh" ng-show="showSpinnerSmall()"></i>
+            <div class="more-button" ng-class="{ 'loading': root.showSpinnerSmall() }">
+                <i class="fa fa-refresh" ng-show="root.showSpinnerSmall()"></i>
                 Ещё новости
             </div>
         </div>
