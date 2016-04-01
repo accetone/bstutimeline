@@ -15,8 +15,6 @@
 	    };
 
 	    self.toTopAnalytics = function () {
-	        console.log(3);
-
 	        var category = typesSvc.active[0].toUpperCase() + typesSvc.active.substring(1);
 
 	        analyticsSvc.click(category, 'Back to the top');
