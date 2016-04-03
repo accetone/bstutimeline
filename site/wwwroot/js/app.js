@@ -224,7 +224,7 @@
             }
         };
 
-        self.init();
+        self.checkAvailability();
 
         return self;
     };
