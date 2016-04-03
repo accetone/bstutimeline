@@ -14,7 +14,11 @@
         self.init = function(type) {
             self.type = type;
 
-            if (newsSvc.getData(type).length === 0) newsSvc.read(type);
+            if (newsSvc.getData(type).length === 0) {
+                newsSvc
+                    .read(type)
+                    .then(analyticsSvc.inject);
+            }
         };
 
         self.getData = function() {
@@ -172,10 +176,22 @@
 
         self.queue = [];
         self.attemp = 0;
-        self.maxAttemps = 15;
+        self.maxAttemps = 30;
         self.inited = false;
+        self.injected = false;
 
-        self.checkAvailability = function() {
+        self.inject = function () {
+            if (self.injected) return;
+
+            self.injected = true;
+
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m);
+          })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        };
+
+        self.checkAvailability = function () {
             if (typeof(ga) !== 'function') {
                 self.attemp++;
 
@@ -281,7 +297,7 @@
 
 		    var url = '/api/news/' + type + '?skip=' + self.data[type].length;
 
-			$http
+			return $http
                 .get(url)
                 .then(function (response) {
                 	for (var i = 0; i < response.data.length; i++) {

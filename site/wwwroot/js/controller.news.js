@@ -9,7 +9,11 @@
         self.init = function(type) {
             self.type = type;
 
-            if (newsSvc.getData(type).length === 0) newsSvc.read(type);
+            if (newsSvc.getData(type).length === 0) {
+                newsSvc
+                    .read(type)
+                    .then(analyticsSvc.inject);
+            }
         };
 
         self.getData = function() {

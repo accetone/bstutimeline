@@ -19,7 +19,7 @@
 
 		    var url = '/api/news/' + type + '?skip=' + self.data[type].length;
 
-			$http
+			return $http
                 .get(url)
                 .then(function (response) {
                 	for (var i = 0; i < response.data.length; i++) {
