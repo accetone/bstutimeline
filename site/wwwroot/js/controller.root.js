@@ -20,11 +20,16 @@
 	        analyticsSvc.click(category, 'Back to the top');
 	    };
 
+	    self.trackLink = function(place, element) {
+	        analyticsSvc.click(place, element);
+	    };
+
 	    $scope.root = {
 	        types: typesSvc,
 	        showSpinner: self.showSpinner,
 	        showSpinnerSmall: self.showSpinnerSmall,
-	        toTopAnalytics: self.toTopAnalytics
+	        toTopAnalytics: self.toTopAnalytics,
+	        trackLink: self.trackLink
 	    };
 	};
 
