@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    var toTopDirective = function ($window) {
+    var toTopDirective = function ($window, $timeout) {
         var link = function (scope, element, attrs) {
             var showAfter = parseInt(attrs['showAfter']);
             var stickOn = parseInt(attrs['stickOn']);
@@ -11,7 +11,12 @@
 
             element.addClass('hidden');
 
-            angular.element($window).on('scroll', function () {
+            if ($window.document.body.clientWidth <= 1024) $timeout(onScrollMobile, 500); 
+            angular.element($window).on('scroll', onScroll);
+
+            element.on('click', onClick);
+
+            function onScroll() {
                 var scrollLeft = $window.document.body.scrollHeight - $window.document.body.scrollTop - $window.document.body.clientHeight;
 
                 if (scrollLeft <= stickOn) {
@@ -25,11 +30,17 @@
                 } else {
                     element.addClass('hidden');
                 }
-            });
+            }
 
-            element.on('click', function () {
+            function onScrollMobile() {
+                onScroll();
+
+                $timeout(onScrollMobile, 500);
+            }
+
+            function onClick() {
                 $window.scrollTo(0, 0);
-            });
+            }
         };
 
         return {
@@ -40,5 +51,5 @@
 
     angular
         .module('timeline')
-        .directive('toTop', ['$window', toTopDirective]);
+        .directive('toTop', ['$window', '$timeout', toTopDirective]);
 })();
