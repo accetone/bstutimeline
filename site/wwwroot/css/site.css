@@ -487,3 +487,8 @@ body,
   -webkit-animation: rotateSpinnerSmall 1.5s infinite ease;
   animation: rotateSpinnerSmall 1.5s infinite ease;
 }
+.timeline .no-more {
+  font-size: 24px;
+  text-align: center;
+  color: #BDBDBD;
+}

@@ -64,6 +64,10 @@
             analyticsSvc.click(self.type, 'Share with FB');
         };
 
+        self.isLastPortion = function() {
+            return newsSvc.isLastPortion(self.type);
+        };
+
         $scope.news = {
             init: self.init,
             getData: self.getData,
@@ -74,7 +78,8 @@
                 vk: self.shareVk,
                 tw: self.shareTw,
                 fb: self.shareFb
-            }
+            },
+            isLastPortion: self.isLastPortion
         };
     };
 

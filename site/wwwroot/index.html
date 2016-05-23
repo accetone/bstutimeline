@@ -84,7 +84,7 @@
         </div>
     </div>
 
-    <script type="text/ng-template" id="news.html">
+<script type="text/ng-template" id="news.html">
     
         <div class="item" ng-repeat="item in news.getData()">
             <div class="img-container" ng-class="{ 'no-thumb': !item.Thumb }">
@@ -133,9 +133,13 @@
         </div>
     
         <div class="more" ng-click="news.readMore()" ng-show="news.getData().length > 0">
-            <div class="more-button" ng-class="{ 'loading': root.showSpinnerSmall() }">
+            <div class="more-button" ng-class="{ 'loading': root.showSpinnerSmall() }" ng-hide="news.isLastPortion()">
                 <i class="fa fa-refresh" ng-show="root.showSpinnerSmall()"></i>
                 Ещё новости
+            </div>
+            
+            <div class="no-more" ng-show="news.isLastPortion()">
+                Новостей больше нет
             </div>
         </div>
     </script>
