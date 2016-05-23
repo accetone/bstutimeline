@@ -179,10 +179,12 @@ html, body, .canvas {
         .transform(scale(0) rotate(720deg));
     }
 
-    &.stick {
-        position: absolute;
-        bottom: 185px;
-    }
+    @media(min-width: 720px) {
+        &.stick {
+            position: absolute;
+            bottom: 185px;
+        }
+    }    
 }
 
 .footer {

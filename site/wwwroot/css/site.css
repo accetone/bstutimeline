@@ -147,9 +147,11 @@ body,
   -webkit-transform: scale(0) rotate(720deg);
   transform: scale(0) rotate(720deg);
 }
-.to-top.stick {
-  position: absolute;
-  bottom: 185px;
+@media (min-width: 720px) {
+  .to-top.stick {
+    position: absolute;
+    bottom: 185px;
+  }
 }
 .footer {
   position: absolute;
