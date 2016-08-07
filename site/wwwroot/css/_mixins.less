@@ -1,0 +1,46 @@
+﻿.border-box {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.transform (@value) {
+    -moz-transform+_: @value;
+    -ms-transform+_: @value;
+    -o-transform+_: @value;
+    -webkit-transform+_: @value;
+    transform+_: @value;
+}
+
+.transition (@property: all, @duration: 0.5s, @ease: ease, @delay: 0s) {
+    -moz-transition+: @arguments;
+    -o-transition+: @arguments;
+    -webkit-transition+: @arguments;
+    transition+: @arguments;
+}
+
+.font-antialiasing {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.center-block {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  
+  .transform(translate(-50%, -50%));
+}
+
+.animation(@animation-name, @duration: 0.5s, @timing: ease, @delay: 0s, @count: infinite) {
+  -moz-animation: @arguments;
+  -o-animation: @arguments;
+  -webkit-animation: @arguments;
+  animation: @arguments;
+}
+
+.keyframes(@name, @arguments) {
+  @-moz-keyframes @name { @arguments(); }
+  @-webkit-keyframes @name { @arguments(); }
+  @keyframes @name { @arguments(); }
+}

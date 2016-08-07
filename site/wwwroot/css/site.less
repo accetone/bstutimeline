@@ -1,4 +1,6 @@
-﻿@primary: #F44336;
+﻿@import (reference) "_mixins.less";
+
+@primary: #F44336;
 @accent: #3D5AFE;
 @background: #F5F5F5;
 @background-2: #FFF;
@@ -6,41 +8,14 @@
 @text-secondary: #BDBDBD;
 @spliter: #f0f0f0;
 
-.transition (@params) {
-    -moz-transition: @params;
-    -o-transition: @params;
-    -webkit-transition: @params;
-    transition: @params;
-}
-
-.transition (@params1, @params2) {
-    -moz-transition: @params1, @params2;
-    -o-transition: @params1, @params2;
-    -webkit-transition: @params1, @params2;
-    transition: @params1, @params2;
-}
-
-.transform (@params) {
-    -moz-transform: @params;
-    -ms-transform: @params;
-    -o-transform: @params;
-    -webkit-transform: @params;
-    transform: @params;
-}
-
-.animation (@params) {
-    -moz-animation: @params;
-    -o-animation: @params;
-    -webkit-animation: @params;
-    animation: @params;
-}
-
 @keyframes rotateSpinnerBig {
     from {
-        .transform(translateX(-50%) rotate(0deg));
+        .transform(translateX(-50%));
+        .transform(rotate(0deg));
     }
     to {
-        .transform(translateX(-50%) rotate(360deg));
+        .transform(translateX(-50%));
+        .transform(rotate(360deg));
     }
 }
 
@@ -141,7 +116,7 @@ html, body, .canvas {
         z-index: 100;
         
         .transform(translateX(-50%));
-        .animation(rotateSpinnerBig 1.5s infinite ease);
+        .animation(rotateSpinnerBig, 1.5s, ease, 0, infinite);
 
         font-size: 50px;
         color: @primary;
@@ -167,7 +142,8 @@ html, body, .canvas {
     box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);
 
     .transition(transform 0.5s ease);
-    .transform(scale(1) rotate(0deg));
+    .transform(scale(1));
+    .transform(rotate(0deg));
 
     cursor: pointer;
 
@@ -176,7 +152,8 @@ html, body, .canvas {
     }
 
     &.hidden {
-        .transform(scale(0) rotate(720deg));
+        .transform(scale(0));
+        .transform(rotate(720deg));
     }
 
     @media(min-width: 720px) {
@@ -532,7 +509,7 @@ html, body, .canvas {
 
                 font-size: 24px;
                                 
-                .animation(rotateSpinnerSmall 1.5s infinite ease);
+                .animation(rotateSpinnerSmall, 1.5s, ease, 0, infinite);
             }
         }          
     }
