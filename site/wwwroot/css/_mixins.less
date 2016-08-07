@@ -12,7 +12,7 @@
     transform+_: @value;
 }
 
-.transition (@property: all, @duration: 0.5s, @ease: ease, @delay: 0s) {
+.transition (@property: all, @duration: 0.5s, @timing: ease, @delay: 0s) {
     -moz-transition+: @arguments;
     -o-transition+: @arguments;
     -webkit-transition+: @arguments;
@@ -32,7 +32,7 @@
   .transform(translate(-50%, -50%));
 }
 
-.animation(@animation-name, @duration: 0.5s, @timing: ease, @delay: 0s, @count: infinite) {
+.animation(@animation-name, @duration: 0.5s, @delay: 0s, @count: infinite, @timing: ease) {
   -moz-animation: @arguments;
   -o-animation: @arguments;
   -webkit-animation: @arguments;

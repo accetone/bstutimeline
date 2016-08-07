@@ -106,10 +106,10 @@ body,
   -o-transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
-  -moz-animation: rotateSpinnerBig 1.5s ease 0 infinite;
-  -o-animation: rotateSpinnerBig 1.5s ease 0 infinite;
-  -webkit-animation: rotateSpinnerBig 1.5s ease 0 infinite;
-  animation: rotateSpinnerBig 1.5s ease 0 infinite;
+  -moz-animation: rotateSpinnerBig 1.5s 0s infinite ease;
+  -o-animation: rotateSpinnerBig 1.5s 0s infinite ease;
+  -webkit-animation: rotateSpinnerBig 1.5s 0s infinite ease;
+  animation: rotateSpinnerBig 1.5s 0s infinite ease;
   font-size: 50px;
   color: #F44336;
 }
@@ -482,10 +482,10 @@ body,
   top: 8px;
   left: 16px;
   font-size: 24px;
-  -moz-animation: rotateSpinnerSmall 1.5s ease 0 infinite;
-  -o-animation: rotateSpinnerSmall 1.5s ease 0 infinite;
-  -webkit-animation: rotateSpinnerSmall 1.5s ease 0 infinite;
-  animation: rotateSpinnerSmall 1.5s ease 0 infinite;
+  -moz-animation: rotateSpinnerSmall 1.5s 0s infinite ease;
+  -o-animation: rotateSpinnerSmall 1.5s 0s infinite ease;
+  -webkit-animation: rotateSpinnerSmall 1.5s 0s infinite ease;
+  animation: rotateSpinnerSmall 1.5s 0s infinite ease;
 }
 .timeline .no-more {
   font-size: 24px;
