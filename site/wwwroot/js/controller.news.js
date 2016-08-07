@@ -12,7 +12,10 @@
             if (newsSvc.getData(type).length === 0) {
                 newsSvc
                     .read(type)
-                    .then(analyticsSvc.inject);
+                    .then(analyticsSvc.inject)
+                    .then(function () {
+                        newsSvc.preread(type);
+                    });
             }
         };
 
@@ -23,7 +26,11 @@
         self.readMore = function () {
             if (loadingSvc.is()) return;
 
-            newsSvc.read(self.type);
+            newsSvc
+                .read(self.type)
+                .then(function () {
+                    newsSvc.preread(self.type);
+                });
 
             analyticsSvc.click(self.type, 'Read More');
         };

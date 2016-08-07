@@ -17,7 +17,10 @@
             if (newsSvc.getData(type).length === 0) {
                 newsSvc
                     .read(type)
-                    .then(analyticsSvc.inject);
+                    .then(analyticsSvc.inject)
+                    .then(function () {
+                        newsSvc.preread(type);
+                    });
             }
         };
 
@@ -28,7 +31,11 @@
         self.readMore = function () {
             if (loadingSvc.is()) return;
 
-            newsSvc.read(self.type);
+            newsSvc
+                .read(self.type)
+                .then(function () {
+                    newsSvc.preread(self.type);
+                });
 
             analyticsSvc.click(self.type, 'Read More');
         };
@@ -304,6 +311,7 @@
 		var self = this;
 
 		self.data = {};
+		self.preloaded = {};
 	    self.lastPortion = {};
 	    self.limit = 10;
 
@@ -324,28 +332,64 @@
 
 		    var url = '/api/news/' + type + '?skip=' + self.data[type].length + '&take=' + self.limit;
 
-		    return $q(function(resolve, reject) {
-		        $http
-                .get(url)
-                .then(function (response) {
-                    for (var i = 0; i < response.data.length; i++) {
-                        self.data[type].push(response.data[i]);
-                    }
+		    return $q(function (resolve, reject) {
+		        var request;
 
-                    if (response.data.length < self.limit) {
-                        self.lastPortion[type] = true;
-                    }
+		        if (self.preloaded[type] && self.preloaded[type][url]) {
+		            if (self.preloaded[type][url].length) {
+		                self.pushData(type, self.preloaded[type][url]);
+		                resolve(self.preloaded[type][url]);
+		                loadingSvc.end();
 
-                    resolve(response.data);
-                })
-                .catch(function(response) {
-		            reject(response);
-		        })
-                .finally(function () {
-                    loadingSvc.end();
-                });
+		                return;
+		            }
+
+		            request = self.preloaded[type][url];
+		        } else {
+		            request = $http.get(url);
+		        }
+                
+		        request
+                    .then(function (response) {
+		                self.pushData(type, response.data);
+                        resolve(response.data);
+                    })
+                    .catch(function(response) {
+		                reject(response);
+		            })
+                    .finally(function () {
+                        loadingSvc.end();
+                    });
 		    });
 		};
+
+		self.preread = function (type) {
+		    if (!self.preloaded[type]) self.preloaded[type] = [];
+
+		    var url = '/api/news/' + type + '?skip=' + self.data[type].length + '&take=' + self.limit;
+
+		    self.preloaded[type][url] = $q(function (resolve, reject) {
+		        $http
+		            .get(url)
+		            .then(function (response) {
+		                self.preloaded[type][url] = response.data;
+		                resolve(response);
+		            })
+		            .catch(function (response) {
+		                reject(response);
+		            });
+		    });
+		};
+
+	    self.pushData = function(type, data) {
+	        for (var i = 0; i < data.length; i++) {
+	            self.data[type].push(data[i]);
+	        }
+
+	        if (data.length < self.limit) {
+	            self.lastPortion[type] = true;
+	        }
+	    };
 
 		return self;
 	};
