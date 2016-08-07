@@ -84,8 +84,7 @@
         </div>
     </div>
 
-<script type="text/ng-template" id="news.html">
-    
+    <script type="text/ng-template" id="news.html">    
         <div class="item" ng-repeat="item in news.getData()">
             <div class="img-container" ng-class="{ 'no-thumb': !item.Thumb }">
                 <div ng-show="item.Thumb" class="img" ng-style="{ 'background-image': 'url(' + item.Thumb + ')' }"></div>
@@ -135,11 +134,11 @@
         <div class="more" ng-click="news.readMore()" ng-show="news.getData().length > 0">
             <div class="more-button" ng-class="{ 'loading': root.showSpinnerSmall() }" ng-hide="news.isLastPortion()">
                 <i class="fa fa-refresh" ng-show="root.showSpinnerSmall()"></i>
-                Ещё новости
+                {{ root.types.text.more() }}
             </div>
             
             <div class="no-more" ng-show="news.isLastPortion()">
-                Новостей больше нет
+                {{ root.types.text.none() }}
             </div>
         </div>
     </script>

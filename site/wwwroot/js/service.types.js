@@ -21,6 +21,15 @@
 	        analyticsSvc.click('Go to', type);
 	    };
 
+	    self.text = {
+            more: function() {
+                return self.active === 'feed' ? 'Ещё новости' : 'Ещё события';
+            },
+            none: function() {
+                return self.active === 'feed' ? 'Новостей больше нет' : 'Событий больше нет';
+            }
+	    };
+
 	    return self;
 	};
 
