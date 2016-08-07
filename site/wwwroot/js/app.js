@@ -14,10 +14,15 @@
         self.init = function(type) {
             self.type = type;
 
+            var start = Date.now();
+
             if (newsSvc.getData(type).length === 0) {
                 newsSvc
                     .read(type)
                     .then(analyticsSvc.inject)
+                    .then(function() {
+                        analyticsSvc.firstChunk(Date.now() - start);
+                    })
                     .then(function () {
                         newsSvc.preread(type);
                     });
@@ -237,9 +242,18 @@
 
             self.inited = true;
 
-            for (var i = 0; i < self.queue; i++) {
+            for (var i = 0; i < self.queue.length; i++) {
                 ga('send', 'event', self.queue[i].category, self.queue[i].type, self.queue[i].label);
             }
+
+            try {
+                var pageLoadingTime = window.performance.timing.responseEnd - window.performance.timing.fetchStart;
+                var domLoadingTime = window.performance.timing.domComplete - window.performance.timing.domLoading;
+
+                ga('send', 'event', 'Performance', 'Page Loading Time', pageLoadingTime);
+                ga('send', 'event', 'Performance', 'DOM Loading Time', domLoadingTime);
+            }
+            catch (e) {}
         };
 
         self.getCounter = function (key) {
@@ -264,6 +278,22 @@
                     type: 'click',
                     category: category,
                     label: label
+                });
+            }
+        };
+
+        self.firstChunk = function (time) {
+            if (self.firstChunkReported) return;
+            else self.firstChunkReported = true;
+
+            if (self.inited) {
+                ga('send', 'event', 'Performance', 'First Chunk Time', time);
+            }
+            else {
+                self.queue.push({
+                    type: 'First Chunck Time',
+                    category: 'Performance',
+                    label: time
                 });
             }
         };

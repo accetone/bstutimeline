@@ -9,10 +9,15 @@
         self.init = function(type) {
             self.type = type;
 
+            var start = Date.now();
+
             if (newsSvc.getData(type).length === 0) {
                 newsSvc
                     .read(type)
                     .then(analyticsSvc.inject)
+                    .then(function() {
+                        analyticsSvc.firstChunk(Date.now() - start);
+                    })
                     .then(function () {
                         newsSvc.preread(type);
                     });
