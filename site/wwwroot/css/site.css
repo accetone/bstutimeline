@@ -267,6 +267,11 @@ body,
     margin: 24px auto;
   }
 }
+@media (min-width: 450px) {
+  .timeline .item {
+    max-width: 400px;
+  }
+}
 @media (min-width: 720px) {
   .timeline .item {
     max-width: none;
@@ -284,12 +289,12 @@ body,
   display: block;
   position: relative;
   width: 100%;
-  max-width: 280px;
   height: auto;
   overflow: hidden;
 }
 @media (min-width: 720px) {
   .timeline .item > .img-container {
+    max-width: 280px;
     float: left;
     margin-right: 16px;
   }
@@ -299,6 +304,16 @@ body,
   height: 187px;
   background-size: cover;
   background-position: center center;
+}
+@media (min-width: 450px) {
+  .timeline .item > .img-container > .img {
+    height: 220px;
+  }
+}
+@media (min-width: 720px) {
+  .timeline .item > .img-container > .img {
+    height: 187px;
+  }
 }
 .timeline .item > .img-container > .placement {
   position: absolute;

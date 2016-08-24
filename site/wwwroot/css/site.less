@@ -288,6 +288,10 @@ html, body, .canvas {
             margin: 24px auto;
         }
 
+        @media(min-width: 450px) {
+            max-width: 400px;
+        }
+
         @media(min-width: 720px) {
             max-width: none;
             margin: 24px 16px 24px 24px;
@@ -303,11 +307,11 @@ html, body, .canvas {
             display: block;
             position: relative;
             width: 100%;
-            max-width: 280px;
             height: auto;
             overflow: hidden;
 
-            @media(min-width: 720px) {
+            @media(min-width: 720px) {                
+                max-width: 280px;
                 float: left;
                 margin-right: 16px;
             }
@@ -317,6 +321,14 @@ html, body, .canvas {
                 height: 187px;
                 background-size: cover;
                 background-position: center center;
+
+                @media(min-width: 450px) {
+                    height: 220px;
+                }
+
+                @media(min-width: 720px) {
+                    height: 187px;
+                }
             }
 
             > .placement {
