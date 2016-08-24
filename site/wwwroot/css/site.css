@@ -126,10 +126,10 @@ body,
   color: #FFF;
   background: #F44336;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  -moz-transition: transform 0.5s ease 0.5s ease 0s;
-  -o-transition: transform 0.5s ease 0.5s ease 0s;
-  -webkit-transition: transform 0.5s ease 0.5s ease 0s;
-  transition: transform 0.5s ease 0.5s ease 0s;
+  -moz-transition: transform 0.5s ease 0s;
+  -o-transition: transform 0.5s ease 0s;
+  -webkit-transition: transform 0.5s ease 0s;
+  transition: transform 0.5s ease 0s;
   -moz-transform: scale(1) rotate(0deg);
   -ms-transform: scale(1) rotate(0deg);
   -o-transform: scale(1) rotate(0deg);
@@ -215,10 +215,10 @@ body,
   color: #e3e3e3;
   display: inline-block;
   cursor: pointer;
-  -moz-transition: left 0.3s ease color 0.3s ease ease 0s;
-  -o-transition: left 0.3s ease color 0.3s ease ease 0s;
-  -webkit-transition: left 0.3s ease color 0.3s ease ease 0s;
-  transition: left 0.3s ease color 0.3s ease ease 0s;
+  -moz-transition: left 0.3s ease 0s, color 0.3s ease 0s;
+  -o-transition: left 0.3s ease 0s, color 0.3s ease 0s;
+  -webkit-transition: left 0.3s ease 0s, color 0.3s ease 0s;
+  transition: left 0.3s ease 0s, color 0.3s ease 0s;
 }
 .timeline-types > .item:hover {
   color: #fbb4af;
@@ -355,17 +355,18 @@ body,
   height: 48px;
   line-height: 32px;
   width: 100%;
-  -moz-transition: all ease 0.5s 0.5s ease 0s;
-  -o-transition: all ease 0.5s 0.5s ease 0s;
-  -webkit-transition: all ease 0.5s 0.5s ease 0s;
-  transition: all ease 0.5s 0.5s ease 0s;
+  -moz-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  -webkit-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
 }
 @media (min-width: 720px) {
   .timeline .item > .actions {
     left: auto;
     right: 0;
     bottom: 0;
-    width: 215px;
+    width: 220px;
+    text-align: right;
   }
 }
 .timeline .item > .actions.out {
@@ -397,10 +398,10 @@ body,
   left: 100%;
   width: 100%;
   padding: 0 16px 16px;
-  -moz-transition: all ease 0.5s 0.5s ease 0s;
-  -o-transition: all ease 0.5s 0.5s ease 0s;
-  -webkit-transition: all ease 0.5s 0.5s ease 0s;
-  transition: all ease 0.5s 0.5s ease 0s;
+  -moz-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  -webkit-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
 }
 @media (min-width: 720px) {
   .timeline .item > .socials {

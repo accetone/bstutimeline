@@ -141,7 +141,7 @@ html, body, .canvas {
 
     box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);
 
-    .transition(transform 0.5s ease);
+    .transition(transform, 0.5s, ease);
     .transform(scale(1));
     .transform(rotate(0deg));
 
@@ -236,7 +236,8 @@ html, body, .canvas {
         display: inline-block;
         cursor: pointer;
 
-        .transition(left 0.3s ease, color 0.3s ease);
+        .transition(left, 0.3s, ease);
+        .transition(color, 0.3s, ease);
 
         &:hover {
             color: lighten(@primary, 25%);
@@ -380,13 +381,14 @@ html, body, .canvas {
             line-height: 32px;
             width: 100%;
 
-            .transition(all ease 0.5s);
+            .transition();
 
             @media (min-width: 720px) {
                 left: auto;
                 right: 0;
                 bottom: 0;
-                width: 215px;
+                width: 220px;
+                text-align: right;
             }
 
             &.out {
@@ -420,7 +422,7 @@ html, body, .canvas {
             width: 100%;
             padding: 0 16px 16px;
 
-            .transition(all ease 0.5s);
+            .transition();
 
             @media(min-width: 720px) {
                 left: auto;
