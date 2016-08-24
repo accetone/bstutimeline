@@ -212,7 +212,7 @@ body,
 }
 .timeline-types > .item {
   position: absolute;
-  color: #e3e3e3;
+  color: #BDBDBD;
   display: inline-block;
   cursor: pointer;
   -moz-transition: left 0.3s ease 0s, color 0.3s ease 0s;
@@ -294,7 +294,7 @@ body,
 }
 @media (min-width: 720px) {
   .timeline .item > .img-container {
-    max-width: 280px;
+    max-width: 274px;
     float: left;
     margin-right: 16px;
   }
@@ -423,7 +423,7 @@ body,
     left: auto;
     right: -100%;
     bottom: 0;
-    padding-left: 296px;
+    padding-left: 290px;
   }
 }
 .timeline .item > .socials.in {
