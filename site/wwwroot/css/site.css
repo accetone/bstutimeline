@@ -354,7 +354,7 @@ body,
   padding: 0 16px 16px;
   height: 48px;
   line-height: 32px;
-  width: 215px;
+  width: 100%;
   -moz-transition: all ease 0.5s 0.5s ease 0s;
   -o-transition: all ease 0.5s 0.5s ease 0s;
   -webkit-transition: all ease 0.5s 0.5s ease 0s;
@@ -365,6 +365,7 @@ body,
     left: auto;
     right: 0;
     bottom: 0;
+    width: 215px;
   }
 }
 .timeline .item > .actions.out {
